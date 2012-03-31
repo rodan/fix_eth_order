@@ -1,0 +1,13 @@
+
+this is a script that controls the order of the ethernet interfaces on a linux 
+box. it can either set up interfaces based on a list of hardware addresses or based on the PCI bus id.
+
+it's being used on systems with multiple interfaces, no trace of udev in sight and iproute2-2.6.36 or newer.
+
+Author:  Petre Rodan <petre.rodan@simplex.ro>
+Date:    2012 03 31
+License: GPLv3
+URL:     github.com/rodan/fix_eth_order 
+dependencies: iproute2-2.6.36 or newer
+
+

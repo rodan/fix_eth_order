@@ -2,7 +2,7 @@
 this is a script that controls the order of the ethernet interfaces on a linux 
 box. it can either set up interfaces based on a list of hardware addresses or based on the PCI bus id.
 
-it's being used on systems with multiple interfaces, no trace of udev in sight, no kernel modprobing and iproute2-2.6.36 or newer.
+it's being used on systems with multiple interfaces, a static /dev and monolithic kernels.
 
 Author:  Petre Rodan <petre.rodan@simplex.ro>
 Date:    2012 03 31

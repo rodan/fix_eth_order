@@ -42,6 +42,8 @@ swap_eth()
     src="$1"
     dst="$2"
 
+    # route save and route restore needs at least iproute2-2.6.36
+
     echo -n " ${src} <-> ${dst} "
 
     rm -f /tmp/${dst}_routes /tmp/${src}_routes
@@ -59,8 +61,8 @@ swap_eth()
     ip link set dev ${src} up
     ip link set dev ${dst} up
 
-    ip route restore dev ${src} < /tmp/${src}_routes 2>/dev/null
-    ip route restore dev ${dst} < /tmp/${dst}_routes 2>/dev/null
+    ip route restore dev ${src} < /tmp/${dst}_routes 2>/dev/null
+    ip route restore dev ${dst} < /tmp/${src}_routes 2>/dev/null
 
     rm -f /tmp/${dst}_routes /tmp/${src}_routes
 }

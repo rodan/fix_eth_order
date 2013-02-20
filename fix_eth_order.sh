@@ -174,7 +174,7 @@ get_pci_bus_order()
     [[ "$1" == "show" ]] && SHOW_INFO=true
     SORTED=true
 
-    ifaces=`ls -al /sys/class/net/eth*/device | sed 's|.*net/\(eth.*\)/device.*\([0-9]\{4,\}:[0-9]\{2,\}:[0-9.]\{3,\}\).*|\2 \1|' | sort -n`
+    ifaces=`ls -al /sys/class/net/eth*/device | sed 's|.*net/\(eth.*\)/device.*\([0-9a-f]\{4,\}:[0-9a-f]\{2,\}:[0-9a-f.]\{3,\}\).*|\2 \1|' | sort -n`
     n=`echo "${ifaces}" | wc -l`
     for ((i=0;i<${n};i++)); do
         extra=""

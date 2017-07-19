@@ -28,6 +28,7 @@ show_usage()
 cat <<- EOF
  $0 available options:
    -h     help
+   -c <file>    use config <file>
    -p     pretend - don't do any changes to the interfaces, just show what should be done
    -s     store the current iface order as the default profile
    -b     show current iface order compared to bus id order
@@ -235,7 +236,11 @@ while (( "$#" )); do
     if [ "$1" = "-p" ]; then
         shift;
         PRETEND=true
-    elif [ "$1" = "-b" ]; then
+    elif [ "$1" = "-c" ]; then
+        CONF="$2"
+        shift;
+        shift;
+     elif [ "$1" = "-b" ]; then
         shift;
         get_pci_bus_order show
     elif [ "$1" = "-bo" ]; then

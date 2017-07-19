@@ -238,6 +238,7 @@ while (( "$#" )); do
         PRETEND=true
     elif [ "$1" = "-c" ]; then
         CONF="$2"
+        [ -e "${CONF}" ] && . "${CONF}"
         shift;
         shift;
      elif [ "$1" = "-b" ]; then

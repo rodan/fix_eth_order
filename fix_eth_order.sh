@@ -70,17 +70,16 @@ swap_eth()
 
 store_order()
 {
-    ifaces=`ls -1d /sys/class/net/eth* | sed 's|.*\(eth[0-9]\{1,2\}\)$|\1|'| xargs`
+    #ifaces=`ls -1d /sys/class/net/eth* | sed 's|.*\(eth[0-9]\{1,2\}\)$|\1|'| xargs`
+    ifaces=`find /sys/class/net/ -maxdepth 1 -mindepth 1 -type l -o -type d | grep 'eth' | sort | sed 's|/.*/||' | xargs`
 
     echo "conf_ifaces=( ${ifaces} ) " > "${CONF}"
-
     for i in ${ifaces}; do
-        hwaddr=`ip a s ${i} |grep ether | sed 's|.*\([0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}\) .*|\1|'`
+        #hwaddr=`ip a s ${i} |grep ether | sed 's|.*\([0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}\) .*|\1|'`
+        hwaddr=`cat "/sys/class/net/${i}/address"`
         echo "${i}_hwaddr='${hwaddr}'" >> "${CONF}"
     done
-
     cat "${CONF}"
-
 }
 
 get_hwaddr_order()
@@ -97,7 +96,8 @@ get_hwaddr_order()
     # get all macs of the real system ethernet nics
     sys_ifaces=`ls -1d /sys/class/net/eth* | sed 's|.*\(eth[0-9]\{1,2\}\)$|\1|'`
     for iface in ${sys_ifaces}; do
-        eval ${iface}_sys_hwaddr=`ip a s ${iface} | grep ether | sed 's|.*\([0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}\) .*|\1|'`
+        #eval ${iface}_sys_hwaddr=`ip a s ${iface} | grep ether | sed 's|.*\([0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}:[0-9a-f]\{2,\}\) .*|\1|'`
+        eval ${iface}_sys_hwaddr=`cat "/sys/class/net/${iface}/address"`
     done
 
     ${SHOW_INFO} && echo "   iface   sys_hwaddr         conf_hwaddr"

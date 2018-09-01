@@ -4,7 +4,7 @@ box. it can either set up interfaces based on a list of hardware addresses or ba
 
 it's being used on systems with multiple interfaces, a static /dev and monolithic kernels.
 
-Author:  Petre Rodan <petre.rodan@simplex.ro>
+Author:  Petre Rodan <2b4eda@subdimension.ro>
 Date:    2012 03 31
 License: GPLv3
 URL:     github.com/rodan/fix_eth_order 
